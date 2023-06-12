@@ -76,7 +76,13 @@ function update() {
         //パイプの生成
         if (rate % piperate === 0) {
             //隙間の中心位置をランダムに決める
-            let center = Math.min(Math.max(GameArea.y / 2 - pipegaprange / 2,Math.round(lastpipepos + (Math.random() - 0.5) * piperandomize)),GameArea.y / 2 + pipegaprange / 2);
+            let center = Math.min(
+                Math.max(
+                    GameArea.y / 2 - pipegaprange / 2,
+                    Math.round(lastpipepos + (Math.random() - 0.5) * piperandomize)
+                ),
+                GameArea.y / 2 + pipegaprange / 2
+            );
             lastpipepos = center;
             pipes.push(
                 //上のパイプ
@@ -88,6 +94,23 @@ function update() {
                     update: function () {
                         this.position.x -= pipespeed;
 
+                        //パイプとキャラクターの当たり判定
+                        if (
+                            //横長の判定
+                            (character.position.x > this.position.x - this.size.x / 2 - character.size.x / 2 &&
+                                character.position.x < this.position.x + this.size.x / 2 + character.size.x / 2 &&
+                                character.position.y > this.position.y - this.size.y / 2 &&
+                                character.position.y < this.position.y + this.size.y / 2) ||
+                            //縦長の判定
+                            (character.position.x > this.position.x - this.size.x / 2 &&
+                                character.position.x < this.position.x + this.size.x / 2 &&
+                                character.position.y > this.position.y - this.size.y / 2 - character.size.y / 2 &&
+                                character.position.y < this.position.y + this.size.y / 2 + character.size.y / 2)
+                        ) {
+                            gameOver();
+                        }
+
+                        //パイプが画面外に出たら削除
                         if (this.position.x < -this.size.x / 2) {
                             pipes.splice(pipes.indexOf(this), 1);
                         }
@@ -105,6 +128,23 @@ function update() {
                     update: function () {
                         this.position.x -= pipespeed;
 
+                        //パイプとキャラクターの当たり判定
+                        if (
+                            //横長の判定
+                            (character.position.x > this.position.x - this.size.x / 2 - character.size.x / 2 &&
+                                character.position.x < this.position.x + this.size.x / 2 + character.size.x / 2 &&
+                                character.position.y > this.position.y - this.size.y / 2 &&
+                                character.position.y < this.position.y + this.size.y / 2) ||
+                            //縦長の判定
+                            (character.position.x > this.position.x - this.size.x / 2 &&
+                                character.position.x < this.position.x + this.size.x / 2 &&
+                                character.position.y > this.position.y - this.size.y / 2 - character.size.y / 2 &&
+                                character.position.y < this.position.y + this.size.y / 2 + character.size.y / 2)
+                        ) {
+                            gameOver();
+                        }
+
+                        //パイプが画面外に出たら削除
                         if (this.position.x < -this.size.x / 2) {
                             pipes.splice(pipes.indexOf(this), 1);
                         }
