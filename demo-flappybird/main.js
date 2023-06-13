@@ -89,7 +89,7 @@ function update() {
                 new CanvasComponents({
                     ctx: MainContext,
                     img: "assets/pipe_top.png",
-                    size: new Vector2(100, 1000),
+                    size: new Vector2(100, 400),
                     position: new Vector2(GameArea.x, center - pipeheight / 2 - 200),
                     update: function () {
                         this.position.x -= pipespeed;
@@ -122,7 +122,7 @@ function update() {
                 new CanvasComponents({
                     ctx: MainContext,
                     img: "assets/pipe_bottom.png",
-                    size: new Vector2(100, 1000),
+                    size: new Vector2(100, 400),
                     position: new Vector2(GameArea.x, center + pipeheight / 2 + 200),
                     motion: new Vector2(-pipespeed, 0),
                     update: function () {
